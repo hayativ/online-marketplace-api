@@ -1,0 +1,15 @@
+<h2>City Time</h2>
+<form method="get">
+  <select name="city">
+    <option>Almaty</option>
+    <option>Calgary</option>
+    <option>Moscow</option>
+    <option>UTC</option>
+  </select>
+  <button type="submit">Show Time</button>
+</form>
+
+{% if time %}
+  <p>Current time in {{ city }}: {{ time }}</p>
+{% endif %}
+<a href="/">Back</a>
