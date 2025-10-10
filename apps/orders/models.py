@@ -43,10 +43,10 @@ class CartItem(models.Model):
         blank=True,
         null=True,
     )
-    product = models.ForeignKey(
-        to="Product",
-        on_delete=models.CASCADE,
-    )
+    # product = models.ForeignKey(
+    #     to="Product",
+    #     on_delete=models.CASCADE,
+    # )
     quantity = models.PositiveSmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -108,14 +108,14 @@ class Order(models.Model):
     class Meta:
         """Meta class."""
 
-        ordering = ("-created_timestamp",)
+        ordering = ("-created_at",)
         # In case user chose a courier delivery, but did not provide an address
         constraints = [
             CheckConstraint(
                 check=(
                     Q(requires_couriers_delivery='not_required') |
                     Q(
-                        delivey_personal_address=False,
+                        delivey_personal_address__isnull=False,
                         delivey_personal_address=""
                     )
                 ),
@@ -136,10 +136,10 @@ class OrderItem(models.Model):
         to=Order,
         on_delete=models.CASCADE,
     )
-    product = models.ForeignKey(
-        to="Product",
-        on_delete=models.CASCADE,
-    )
+    # product = models.ForeignKey(
+    #     to="Product",
+    #     on_delete=models.CASCADE,
+    # )
     name = models.CharField(max_length=256)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
@@ -158,10 +158,10 @@ class OrderItem(models.Model):
 class Review(models.Model):
     """Review model."""
 
-    product = models.ForeignKey(
-        to="Product",
-        on_delete=models.CASCADE,
-    )
+    # product = models.ForeignKey(
+    #     to="Product",
+    #     on_delete=models.CASCADE,
+    # )
     author = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.SET_DEFAULT,
