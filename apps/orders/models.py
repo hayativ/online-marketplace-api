@@ -5,6 +5,8 @@ from django.core.validators import RegexValidator
 from django.db.models import CheckConstraint, Q
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from apps.products.models import Product
+
 
 REQUIRES_DELIVERY_CHOICES = [
     ('required', 'Courier delivery required'),
@@ -43,10 +45,10 @@ class CartItem(models.Model):
         blank=True,
         null=True,
     )
-    # product = models.ForeignKey(
-    #     to="Product",
-    #     on_delete=models.CASCADE,
-    # )
+    product = models.ForeignKey(
+        to=Product,
+        on_delete=models.CASCADE,
+    )
     quantity = models.PositiveSmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -59,7 +61,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         """Magic method."""
-        return f"{self.user.last_name} {self.user.first_name}'s cart"
+        return f"{self.user.username}'s cart"
 
     def get_products_price(self):
         """Get the subtotal of a cart."""
@@ -88,7 +90,7 @@ class Order(models.Model):
     )
     delivery_city = models.CharField(max_length=64)
     delivery_pickup_point = models.CharField(max_length=512)
-    delivey_personal_address = models.CharField(
+    delivery_personal_address = models.CharField(
         max_length=512,
         null=True,
         blank=True
@@ -98,7 +100,6 @@ class Order(models.Model):
         choices=REQUIRES_DELIVERY_CHOICES,
         default='not_required',
     )
-    is_paid = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
@@ -115,8 +116,8 @@ class Order(models.Model):
                 check=(
                     Q(requires_couriers_delivery='not_required') |
                     Q(
-                        delivey_personal_address__isnull=False,
-                        delivey_personal_address=""
+                        delivery_personal_address__isnull=False,
+                        delivery_personal_address__gte=""
                     )
                 ),
                 name="requires_delivery_adress_is_not_null"
@@ -126,7 +127,7 @@ class Order(models.Model):
     def __str__(self):
         """Magic str method."""
         return (f"Order № {self.pk}"
-                f" User: {self.user.first_name} {self.user.last_name}")
+                f" User: {self.user.username}")
 
 
 class OrderItem(models.Model):
@@ -136,10 +137,10 @@ class OrderItem(models.Model):
         to=Order,
         on_delete=models.CASCADE,
     )
-    # product = models.ForeignKey(
-    #     to="Product",
-    #     on_delete=models.CASCADE,
-    # )
+    product = models.ForeignKey(
+        to=Product,
+        on_delete=models.CASCADE,
+    )
     name = models.CharField(max_length=256)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
@@ -158,10 +159,10 @@ class OrderItem(models.Model):
 class Review(models.Model):
     """Review model."""
 
-    # product = models.ForeignKey(
-    #     to="Product",
-    #     on_delete=models.CASCADE,
-    # )
+    product = models.ForeignKey(
+        to=Product,
+        on_delete=models.CASCADE,
+    )
     author = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.SET_DEFAULT,
