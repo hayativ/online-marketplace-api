@@ -18,6 +18,12 @@ ASGI_APPLICATION = "settings.asgi.application"
 # Apps
 #
 DJANGO_AND_THIRD_PARTY_APPS = [
+    "unfold",
+
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
+    "unfold.contrib.inlines",
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -64,18 +70,10 @@ TEMPLATES = [
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 # ----------------------------------------------
@@ -92,8 +90,48 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "medis")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.CustomUser"
+
+# ----------------------------------------------
+# Unfold
+#
+UNFOLD = {
+    "SITE_HEADER": "Online Marketplace API",
+    "SITE_TITLE": "Online Marketplace API",
+    "SITE_SYMBOL": "🛒",
+    "SHOW_LANG_SWITCH": False,
+
+    "SIDEBAR": {
+        "items": [
+            {
+                "label": "Users",
+                "icon": "user",
+                "items": [
+                    {"model": "users.CustomUser"},
+                ],
+            },
+            {
+                "label": "Products",
+                "icon": "package",
+                "items": [
+                    {"model": "products.Category"},
+                    {"model": "products.Product"},
+                ],
+            },
+            {
+                "label": "Orders",
+                "icon": "shopping-cart",
+                "items": [
+                    {"model": "orders.CartItem"},
+                    {"model": "orders.Order"},
+                    {"model": "orders.OrderItem"},
+                    {"model": "orders.Review"},
+                ],
+            },
+        ]
+    },
+}
