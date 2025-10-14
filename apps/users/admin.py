@@ -1,10 +1,17 @@
+# Django modules
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+
+# Project modules
 from .models import CustomUser
 
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
+    """
+    Custom User Admin configuration class.
+    """
+
     list_display = (
         "id",
         "email",

@@ -1,10 +1,16 @@
+# Django modules
 from django.contrib import admin
 
+# Project modules
 from .models import Order, OrderItem, CartItem, Review
 
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
+    """
+    Cart item admin configuration class.
+    """
+
     list_display = (
         "id",
         "user",
@@ -33,6 +39,10 @@ class CartItemAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
+    """
+    Order item admin configuration class.
+    """
+
     list_display = (
         "id",
         "order",
@@ -69,6 +79,10 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class Order(admin.ModelAdmin):
+    """
+    Order admin configuration class.
+    """
+
     list_display = (
         "id",
         "user",
@@ -127,6 +141,10 @@ class Order(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewItemAdmin(admin.ModelAdmin):
+    """
+    Review admin configuration class.
+    """
+
     list_display = (
         "id",
         "author",

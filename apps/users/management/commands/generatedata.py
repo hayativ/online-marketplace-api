@@ -16,7 +16,7 @@ from apps.orders.models import CartItem, Order, OrderItem, Review
 
 
 class Command(BaseCommand):
-    help = "Generate 20 test records for each model with relationships"
+    help = "Generate tasks data for testing purposes"
 
     EMAIL_DOMAINS = (
         "example.com",
@@ -49,7 +49,7 @@ class Command(BaseCommand):
 
     def __generate_users(self, user_count: int = 20) -> None:
         """
-        Generates CustomUser records for testing purposes.
+        Generates users for testing purposes.
         """
 
         USER_PASSWORD = make_password(password="12345")
@@ -86,7 +86,7 @@ class Command(BaseCommand):
 
     def __generate_categories(self, category_count: int = 20) -> None:
         """
-        Generates Category records.
+        Generates categories for testing purposes.
         """
 
         created_categories: list[Category] = []
@@ -112,7 +112,7 @@ class Command(BaseCommand):
 
     def __generate_products(self, product_count: int = 20) -> None:
         """
-        Generates Product records.
+        Generates products for testing purposes.
         """
 
         created_products: list[Product] = []
@@ -147,7 +147,7 @@ class Command(BaseCommand):
 
     def __generate_cart_items(self, count: int = 20) -> None:
         """
-        Generates CartItem records.
+        Generates cart items for testing purposes.
         """
 
         created_items: list[CartItem] = []
@@ -176,7 +176,7 @@ class Command(BaseCommand):
 
     def __generate_orders(self, count: int = 20) -> None:
         """
-        Generates Order records.
+        Generates orders for testing purposes.
         """
 
         created_orders: list[Order] = []
@@ -210,7 +210,7 @@ class Command(BaseCommand):
 
     def __generate_order_items(self, count: int = 20) -> None:
         """
-        Generates OrderItem records.
+        Generates order items for testing purposes.
         """
 
         created_items: list[OrderItem] = []
@@ -242,7 +242,7 @@ class Command(BaseCommand):
 
     def __generate_reviews(self, count: int = 20) -> None:
         """
-        Generates Review records.
+        Generates reviews for testing purposes.
         """
 
         created_reviews: list[Review] = []

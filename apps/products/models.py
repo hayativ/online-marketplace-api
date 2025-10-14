@@ -1,16 +1,26 @@
+# Django modules
 from django.conf import settings
 from django.db import models
 
 
 class Category(models.Model):
+    """
+    Category database (table) model.
+    """
+
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Returns the string representation of the object."""
         return self.name
 
 
 class Product(models.Model):
+    """
+    Product database (table) model.
+    """
+
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='products')
     seller = models.ForeignKey(
@@ -21,5 +31,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Returns the string representation of the object."""
         return self.name
