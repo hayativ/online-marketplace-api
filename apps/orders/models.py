@@ -1,10 +1,13 @@
-"""Models to work with user's carts and orders."""
+# Python modules + Third party modules
+
+# Django modules
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import RegexValidator
 from django.db.models import CheckConstraint, Q
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+# Project modules
 from apps.products.models import Product
 
 
@@ -38,7 +41,10 @@ class CartItemQuerySet(models.QuerySet):
 
 
 class CartItem(models.Model):
-    """Model, containing information about a single product in a cart."""
+    """
+    ProjCart item database (table) model.
+    """
+
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
@@ -69,7 +75,9 @@ class CartItem(models.Model):
 
 
 class Order(models.Model):
-    """Order's model."""
+    """
+    Order item database (table) model.
+    """
 
     user = models.ForeignKey(
         to=get_user_model(),
@@ -131,7 +139,9 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    """Order Item's model."""
+    """
+    Order item database (table) model.
+    """
 
     order = models.ForeignKey(
         to=Order,
@@ -157,7 +167,9 @@ class OrderItem(models.Model):
 
 
 class Review(models.Model):
-    """Review model."""
+    """
+    Review database (table) model.
+    """
 
     product = models.ForeignKey(
         to=Product,

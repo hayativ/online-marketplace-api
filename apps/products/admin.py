@@ -1,9 +1,16 @@
+# Django modules
 from django.contrib import admin
+
+# Project modules
 from .models import Category, Product
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """
+    Category admin configuration class.
+    """
+
     list_display = (
         "id",
         "name",
@@ -28,6 +35,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    """
+    Product admin configuration class.
+    """
+
     list_display = (
         "id",
         "name",
